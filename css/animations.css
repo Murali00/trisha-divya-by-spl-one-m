@@ -1,0 +1,236 @@
+/* ==========================================================
+   animations.css — keyframes, reveal states, motion helpers
+   Everything here is switched off for prefers-reduced-motion.
+   ========================================================== */
+
+/* ---------- Scroll reveal (activated by JS: html.js) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 1.1s var(--ease),
+    transform 1.2s var(--ease),
+    filter 1.2s var(--ease);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.js [data-reveal="up"]    { transform: translateY(46px); }
+.js [data-reveal="down"]  { transform: translateY(-30px); }
+.js [data-reveal="left"]  { transform: translateX(-56px); }
+.js [data-reveal="right"] { transform: translateX(56px); }
+.js [data-reveal="zoom"]  { transform: scale(.92); }
+.js [data-reveal="blur"]  { filter: blur(12px); transform: translateY(20px); }
+.js [data-reveal="fade"]  { transform: none; }
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* image reveal: a soft panel lifts away while the image settles from a zoom
+   (a pseudo-element is used instead of clip-path so IntersectionObserver can still "see" the frame) */
+.js .img-reveal { position: relative; }
+.js .img-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--beige);
+  transform-origin: 50% 0;
+  transition: transform 1.4s var(--ease-in-out);
+  pointer-events: none;
+}
+.js .img-reveal img { transform: scale(1.25); transition: transform 2s var(--ease), opacity .9s var(--ease); }
+.js .img-reveal.is-visible::before { transform: scaleY(0); }
+.js .img-reveal.is-visible img { transform: scale(1); }
+
+/* ---------- Split text (letters) ---------- */
+.split-line { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.char {
+  display: inline-block;
+  transform: translateY(110%) rotate(6deg);
+  opacity: 0;
+  transition: transform 1s var(--ease), opacity .8s var(--ease);
+  transition-delay: calc(var(--i, 0) * 45ms + var(--base, 0ms));
+}
+.is-split.is-visible .char,
+.is-split.play .char { transform: none; opacity: 1; }
+.word { display: inline-block; white-space: nowrap; }
+
+/* words fading one by one */
+.wordfade .w { display: inline-block; opacity: .2; transition: opacity .6s var(--ease); }
+.wordfade .w.on { opacity: 1; }
+
+/* ---------- Hero entrance (index) ---------- */
+.hero-enter > * { opacity: 0; transform: translateY(26px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); }
+body.hero-go .hero-enter > * { opacity: 1; transform: none; }
+body.hero-go .hero-enter > *:nth-child(1) { transition-delay: .1s; }
+body.hero-go .hero-enter > *:nth-child(2) { transition-delay: .2s; }
+body.hero-go .hero-enter > *:nth-child(3) { transition-delay: 1.2s; }
+body.hero-go .hero-enter > *:nth-child(4) { transition-delay: 1.4s; }
+body.hero-go .hero-enter > *:nth-child(5) { transition-delay: 1.6s; }
+
+.hero-visual-enter { opacity: 0; transform: translateY(40px) scale(.96); transition: opacity 1.4s var(--ease) .3s, transform 1.6s var(--ease) .3s; }
+body.hero-go .hero-visual-enter { opacity: 1; transform: none; }
+.hero-visual-enter .arch-frame img { transform: scale(1.18); transition: transform 2.4s var(--ease) .3s; }
+body.hero-go .hero-visual-enter .arch-frame img { transform: scale(1); }
+.hero-visual-enter .hero-note,
+.hero-visual-enter .hero-stamp { opacity: 0; transition: opacity 1s var(--ease) 1.6s, transform 1s var(--ease) 1.6s; }
+body.hero-go .hero-visual-enter .hero-note,
+body.hero-go .hero-visual-enter .hero-stamp { opacity: 1; }
+
+/* intro text */
+.intro .intro-inner > * { opacity: 0; transform: translateY(18px); animation: introIn 1.1s var(--ease) forwards; }
+.intro .intro-inner > *:nth-child(1) { animation-delay: .3s; }
+.intro .intro-inner > *:nth-child(2) { animation-delay: .9s; }
+.intro .intro-inner > *:nth-child(3) { animation-delay: 1.7s; }
+.intro .intro-inner > *:nth-child(4) { animation-delay: 2.4s; }
+.intro .intro-inner > *:nth-child(5) { animation-delay: 2.9s; }
+
+/* ---------- Staggered children ---------- */
+.js [data-stagger] > * { opacity: 0; transform: translateY(34px); transition: opacity .9s var(--ease), transform 1s var(--ease); }
+.js [data-stagger].is-visible > * { opacity: 1; transform: none; }
+.js [data-stagger].is-visible > *:nth-child(1) { transition-delay: .05s; }
+.js [data-stagger].is-visible > *:nth-child(2) { transition-delay: .15s; }
+.js [data-stagger].is-visible > *:nth-child(3) { transition-delay: .25s; }
+.js [data-stagger].is-visible > *:nth-child(4) { transition-delay: .35s; }
+.js [data-stagger].is-visible > *:nth-child(5) { transition-delay: .45s; }
+.js [data-stagger].is-visible > *:nth-child(6) { transition-delay: .55s; }
+.js [data-stagger].is-visible > *:nth-child(7) { transition-delay: .65s; }
+.js [data-stagger].is-visible > *:nth-child(8) { transition-delay: .75s; }
+.js [data-stagger].is-visible > *:nth-child(9) { transition-delay: .85s; }
+.js [data-stagger].is-visible > *:nth-child(10) { transition-delay: .95s; }
+.js [data-stagger].is-visible > *:nth-child(n+11) { transition-delay: 1.05s; }
+
+/* ---------- Tilt ---------- */
+[data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .6s var(--ease); }
+[data-tilt].is-tilting { transition: transform .12s linear; }
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .55), transparent 55%);
+  opacity: 0;
+  transition: opacity .4s;
+}
+[data-tilt].is-tilting::after { opacity: 1; }
+
+/* ---------- Keyframes ---------- */
+@keyframes introIn { to { opacity: 1; transform: none; } }
+
+@keyframes scrollWheel {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  80% { transform: translateY(12px); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes auroraFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4%, -6%) scale(1.12); }
+  100% { transform: translate(-5%, 5%) scale(.94); }
+}
+
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
+}
+.float { animation: floatY 6s ease-in-out infinite; }
+.float-slow { animation: floatY 9s ease-in-out infinite; }
+
+@keyframes stampSpin { to { transform: rotate(360deg); } }
+.hero-stamp svg { animation: stampSpin 22s linear infinite; }
+
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-1deg); }
+  25% { transform: scale(1.04, .96) rotate(2deg); }
+  50% { transform: scale(.96, 1.05) rotate(-2deg); }
+  75% { transform: scale(1.03, .98) rotate(1deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(.4); }
+  50% { opacity: .9; transform: scale(1); }
+}
+
+@keyframes drawStroke { to { stroke-dashoffset: 0; } }
+@keyframes fillIn { to { fill: var(--rose-deep); stroke-width: 0; } }
+
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(185, 127, 124, .35); }
+  50% { box-shadow: 0 0 0 14px rgba(185, 127, 124, 0); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(90deg); }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-text {
+  background: linear-gradient(100deg, var(--charcoal) 20%, var(--rose-deep) 40%, var(--gold) 50%, var(--rose-deep) 60%, var(--charcoal) 80%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+
+@keyframes heartPop {
+  0% { transform: translate(-50%, 0) scale(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--x, 0px)), -140px) scale(1); opacity: 0; }
+}
+.heart-pop {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  color: var(--rose);
+  pointer-events: none;
+  animation: heartPop 1.8s var(--ease) forwards;
+  font-size: var(--s, 14px);
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: .4; }
+}
+
+/* ==========================================================
+   Reduced motion: show everything, remove movement
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal], .js [data-stagger] > *, .char, .hero-enter > *, .hero-visual-enter,
+  .hero-visual-enter .hero-note, .hero-visual-enter .hero-stamp, .intro .intro-inner > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+  .js .img-reveal img { transform: none !important; }
+  .js .img-reveal::before { display: none !important; }
+  .wordfade .w { opacity: 1 !important; }
+  .num-23 text { stroke-dashoffset: 0 !important; fill: var(--rose-deep) !important; }
+  .cursor-glow, #particles { display: none !important; }
+  .marquee-track { animation: none !important; }
+}
+
+/* keep the hover zoom on revealed photo cards */
+.js .photo-card.img-reveal.is-visible:hover img,
+.js .photo-card.img-reveal.is-visible:focus-visible img { transform: scale(1.07); }

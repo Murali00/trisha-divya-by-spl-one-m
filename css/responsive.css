@@ -1,0 +1,168 @@
+/* ==========================================================
+   responsive.css — mobile-first adjustments
+   320 · 375 · 425 · 768 · 1024 · 1280 · 1440 · large
+   ========================================================== */
+
+/* ---------- Small phones (≤ 374px) ---------- */
+@media (max-width: 374.98px) {
+  body { font-size: 1rem; }
+  .brand small { display: none; }
+  .brand-mark { width: 36px; height: 36px; font-size: .85rem; }
+  .nav-toggle { padding: 8px 12px; gap: 8px; }
+  .nav-toggle .label { display: none; }
+  .hero-name { font-size: 3.1rem; }
+  .hero-chip { font-size: .66rem; padding: 6px 11px; }
+  .btn-soft { padding: .95em 1.4em; font-size: .86rem; }
+  .flip-card { height: 270px; }
+  .flip-front .q { font-size: 1.45rem; }
+  .chapter-list a { grid-template-columns: 38px 1fr auto; gap: 8px; }
+  .chapter-list .c-arrow { width: 36px; height: 36px; }
+  .receipt { padding: 26px 18px; font-size: .88rem; }
+  .clock-box .clock-row { grid-template-columns: 1fr; gap: 6px; }
+  .clock-box .clock-eq { transform: rotate(90deg); }
+}
+
+/* ---------- Phones (< 768px) ---------- */
+@media (max-width: 767.98px) {
+  :root { --nav-h: 66px; }
+  .hero { padding-top: calc(var(--nav-h) + 16px); padding-bottom: 100px; text-align: left; }
+  .hero-visual { max-width: 300px; margin: 8px auto 34px; }
+  .hero-note { left: -6%; bottom: 6%; max-width: 170px; padding: 10px 14px; }
+  .hero-note .hand { font-size: 1.12rem; }
+  .hero-stamp { width: 84px; height: 84px; right: -6%; top: 2%; }
+  .hero-stamp text { font-size: 8.5px; }
+  .hero-stamp .stamp-center { font-size: 1.5rem; }
+  .arch-outline { inset: -10px; }
+  .scroll-cue { bottom: 16px; }
+  .scroll-cue .label { display: none; }
+
+  .page-hero { text-align: left; }
+  .page-hero-media { max-width: 320px; margin-top: 46px; }
+  .page-hero-media .float-tag { right: -2%; }
+
+  .polaroid { width: min(240px, 72vw); }
+  .polaroid:nth-child(2), .polaroid:nth-child(4) { margin-top: 0; }
+
+  .trait .trait-media { order: -1; }
+  .trait .trait-media .photo-card { max-width: 330px; margin-inline: auto; }
+  .trait .trait-media::before { right: 4%; }
+
+  .tl-media { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .lb-stage { padding: 0 6px; }
+  .lb-prev, .lb-next { top: auto; bottom: -62px; transform: none; }
+  .lb-prev:hover, .lb-next:hover { transform: none; }
+  .lb-prev { left: 20px; }
+  .lb-next { right: 20px; }
+  .lb-caption { padding-inline: 80px; }
+
+  .footer-links { columns: 2; }
+  .footer-bottom { flex-direction: column; }
+
+  .special-card .big-letter { font-size: 14rem; bottom: -10%; }
+  .final-lines p { font-size: clamp(1.8rem, 8.4vw, 2.6rem); }
+  .num-23 svg { width: 92vw; }
+  .thing { height: 150px; }
+  .menu-aside .hand, .menu-aside p.small { display: none; }
+  .menu-overlay .menu-inner { gap: 24px; }
+  .to-top { width: 46px; height: 46px; }
+}
+
+/* ---------- ≥ 425px ---------- */
+@media (min-width: 425px) {
+  .masonry { column-count: 2; column-gap: 14px; }
+  .masonry-item { margin-bottom: 14px; }
+}
+
+/* ---------- ≥ 576px ---------- */
+@media (min-width: 576px) {
+  .things-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Tablet (≥ 768px) ---------- */
+@media (min-width: 768px) {
+  .masonry { column-gap: 18px; }
+  .masonry-item { margin-bottom: 18px; }
+
+  .trait { grid-template-columns: 1fr 1fr; }
+  .trait.reverse .trait-media { order: -1; }
+  .trait.reverse .trait-media::before { right: auto; left: 0; }
+  .trait.reverse .trait-media .photo-card { margin-left: auto; }
+
+  /* centred alternating timeline */
+  .timeline-line { left: 50%; }
+  .tl-dot { left: 50%; }
+  .tl-item { width: 50%; padding-left: 0; padding-right: 60px; text-align: right; }
+  .tl-item .tl-dot { left: auto; right: -7px; margin-left: 0; }
+  .tl-item p, .tl-item .tl-media { margin-left: auto; }
+  .tl-item .tl-icon { margin-left: auto; }
+  .tl-item:nth-child(even) { margin-left: 50%; padding-right: 0; padding-left: 60px; text-align: left; }
+  .tl-item:nth-child(even) .tl-dot { right: auto; left: -8px; }
+  .tl-item:nth-child(even) p, .tl-item:nth-child(even) .tl-media, .tl-item:nth-child(even) .tl-icon { margin-left: 0; }
+
+  .menu-overlay .menu-inner { grid-template-columns: 1.6fr 1fr; align-items: end; }
+  .things-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---------- Laptop (≥ 992px) ---------- */
+@media (min-width: 992px) {
+  .masonry { column-count: 3; }
+  .hero-visual { max-width: 460px; }
+  .things-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ---------- Desktop (≥ 1200px) ---------- */
+@media (min-width: 1200px) {
+  .nav-links { display: flex; }
+  .nav-toggle .label { display: none; }
+  .nav-toggle { padding: 11px 13px; }
+  .things-grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* ---------- Large desktop (≥ 1440px) ---------- */
+@media (min-width: 1440px) {
+  .masonry { column-count: 4; }
+  .container { max-width: 1320px; }
+  .hero-visual { max-width: 500px; }
+}
+
+@media (min-width: 1800px) {
+  body { font-size: 1.125rem; }
+  .container { max-width: 1480px; }
+  .hero-visual { max-width: 560px; }
+}
+
+/* touch devices: no hover-only reveals → show captions softly */
+@media (hover: none) {
+  .photo-card .photo-caption { opacity: 1; transform: none; font-size: 1.02rem; }
+  .photo-card::after { opacity: .75; background: linear-gradient(180deg, transparent 62%, rgba(42, 35, 33, .7) 100%); }
+  .masonry-item .cat-pill { opacity: 1; transform: none; }
+  .cursor-glow { display: none; }
+}
+
+/* landscape phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero, .final-hero { min-height: auto; padding-top: calc(var(--nav-h) + 30px); }
+  .scroll-cue { display: none; }
+}
+
+/* print: keep it clean */
+@media print {
+  .site-nav, .menu-overlay, .to-top, .cursor-glow, #particles, .page-curtain, .intro, .scroll-progress { display: none !important; }
+  [data-reveal], [data-stagger] > *, .char, img[data-img] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}
+
+/* comfortable side gutters on phones */
+@media (max-width: 767.98px) {
+  .container, .container-narrow { padding-left: 20px; padding-right: 20px; }
+}
+
+/* 23 things: two columns on phones so the list doesn't feel endless */
+@media (max-width: 575.98px) {
+  .things-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .thing { height: 168px; }
+  .thing .t-face { padding: 16px 14px; }
+  .thing .t-front .t-n { font-size: 2.4rem; }
+  .thing .t-back .t-text { font-size: 1.04rem; line-height: 1.22; }
+  .thing .t-front .t-hint { font-size: .62rem; letter-spacing: .12em; }
+}
